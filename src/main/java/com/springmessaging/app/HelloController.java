@@ -1,8 +1,12 @@
 package com.springmessaging.app;
 
+import com.springmessaging.dto.UserDto;
 import org.springframework.web.bind.annotation.*;
 
+import javax.management.ValueExp;
+
 @RestController
+@RequestMapping
 public class HelloController {
     @GetMapping("/hello")
     public String uc1() {
@@ -21,9 +25,14 @@ public class HelloController {
     }
 
     // POST request to "/hello/post" with User details in the body
-    @GetMapping("/hello/post")
-    public String uc4(@RequestParam String firstName, @RequestParam String lastName) {
-        return "Hello " + firstName + " " + lastName + " from Bridgelabz";
+    @PostMapping("/hello/post")
+    public String uc4(@RequestBody UserDto user) {
+        return "Hello " + user.getFirstName() + " " + user.getLastName() + " from Bridgelabz";
 
+    }
+    
+    @PutMapping("hello/put/{firstName}/")
+    public String sayHello(@PathVariable String firstName, @RequestParam(value = "lastName") String lastName) {
+        return "Hello " + firstName + " " + lastName + " from BridgeLabz!";
     }
 }
